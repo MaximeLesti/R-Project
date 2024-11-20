@@ -1,0 +1,426 @@
+---
+title: "Rapport"
+author: "Maxime Lestiboudois"
+format: html
+editor: visual
+---
+
+# Exercice 1
+
+Le but de cet exercice est de prendre en main les fonctionnalités de R permetant de récupérer des jeux de données, de toutes tailles, très facilement.
+
+Nous utiliserons pour commencer deux fonctions/instructions permettant d'extraire des données d'un fichier texte:\
+- `scan()`\
+- `read.table()`
+
+`scan()` permet de récupérer les valeurs d'un fichier lorsqu'elles sont présentées sous forme de liste de valeurs, simplement séparées par un espace. La méthode renvoie alors un objet de type vecteur.\
+`read.table()` est utilisé lorsque les données se présentent sous forme de table (une ligne par observation, une colonne par variable).
+
+### Partie a)
+
+**Enoncé:**\
+Télécharger et copier les données depuis la page Cyberlearn.
+
+Pour cela, il suffit de télécharger les données et de les ajouter dans le dossier Répertoire dans lequel le fichier .R est ouvert. Ici nous ajoutons donc deux nouveaux fichiers à notre répertoire:\
+- cpus.txt\
+- examen.txt
+
+Pour connaître le répertoire dans lequel on travaille, on peut utiliser la commande
+
+```{r}
+getwd()
+```
+
+Pour changer de répertoire, il faut utiliser la commande
+
+```{r}
+# setwd("MON_NOUVEAU_CHEMIN")
+```
+
+MON_NOUVEAU_CHEMIN est le chemin vers le répertoire auquel on souhaite accéder.\
+La méthode est ici commentée car MON_NOUVEAU_CHEMIN n'est pas un chemin existant les ordinateurs.
+
+### Partie b)
+
+**Enoncé:**\
+Charger les données dans R en utilisant les fonctions scan et read.table().\
+Les utilisateurs se chargeront d’adapter les chemins à leur répertoire de travail et à leur système d’exploitation. Les fichiers cpus.txt et examen.txt sont ainsi accessibles dans R sous les noms cpus et examen respectivement.
+
+En observant les fichiers textes cités ci-dessus, nous nous rendons compte que nous avons affaire à une liste de données pour le fichier cpus.txt et examen.txt est une table de données. Nous utiliserons donc la méthode `scan()` pour le fichier cpus.txt et `read.table()` pour examen.txt :
+
+```{r}
+cpus <- scan("cpus.txt")
+```
+
+```{r}
+examen <- read.table("examen.txt", header = TRUE)
+```
+
+Dans le fichier examen.txt, il y a des en-têtes décrivant les données, le paramètre *header* vaut alors vrai (TRUE).
+
+### Partie c)
+
+**Enoncé:**\
+Pour voir le contenu de l’objet cpus, taper l’instruction :
+
+```{r}
+cpus
+```
+
+Idem pour examen:
+
+```{r}
+examen
+```
+
+### Partie d)
+
+**Enoncé:**\
+Pour accéder à la 19ème composante du vecteur cpus, utiliser la commande :
+
+```{r}
+cpus[19]
+```
+
+Nous obtenons alors la valeur à l'index 19 (la première valeur du vecteur est d'index 1)
+
+### Partie e)
+
+**Enoncé:**\
+Pour obtenir une partie du vecteur cpus comme par exemple les éléments du vecteur compris entre la 5ème et la 21ème composante, taper l’instruction :
+
+```{r}
+cpus[5:21]
+```
+
+### Partie f)
+
+**Enoncé:**\
+Pour extraire du vecteur cpus ses éléments supérieurs à 200, utiliser la commande :
+
+```{r}
+cpus[cpus>200]
+```
+
+### Partie g)
+
+**Enoncé:**\
+Il est possible d’accéder directement aux composantes d’une table par le nom. Par exemple, si on veut afficher la composante note de l’objet examen, on peut utiliser la commande :
+
+```{r}
+examen$note
+```
+
+### Partie h)
+
+**Enoncé:**\
+On peut aussi accéder en profondeur aux composantes comme par exemple par la commande :
+
+```{r}
+examen$note[9]
+```
+
+### Partie i)
+
+**Enoncé:**\
+La méthode la plus simple pour créer un vecteur consiste à énumérer ses éléments à l’aide de la fonction *c()* :
+
+```{r}
+mesdonnees<-c(2.9, 3.4, 3.4, 3.7, 3.7, 2.8, 2.1, 2.5, 2.6, 1.5)
+mesdonnees
+```
+
+```{r}
+couleurs<-c("bleu", "vert", "blanc", "noir", "jaune")
+couleurs
+```
+
+### Partie j)
+
+**Enoncé:**\
+On peut ôter des composantes d’un vecteur en indiquant entre crochets les indices précédés du signe négatif comme par exemple :
+
+```{r}
+ mesdonnees[-c(5:9)]
+```
+
+### Partie k)
+
+**Enoncé:**\
+Finalement, le contenu de votre environnement de travail est affiché à l’aide de la fonction ls() :
+
+```{r}
+ls()
+```
+
+## Conclusion de l'exercice 1
+
+Dans cet exercice, nous avons appris à :\
+- changer de répertoire de travail\
+- extraire des jeux de données de fichiers textes\
+- afficher les dits-jeuc de données\
+- accèder à certaines parties uniquement de vecteurs ou tables de données\
+- créer des vecteurs de données\
+- modifier des données présentes dans les vecteurs\
+- afficher le contenu de notre environnement de travail
+
+# Exercice 2
+
+La performance relative au processeur IBM 370/158-3 de 50 processeurs d’ordinateurs a été relevée.
+
+L'objet cpus contient les valeurs observées:
+
+```{r}
+cpus
+```
+
+### Partie a)
+
+**Enoncé:**\
+Construire un diagramme branche-et-feuilles, une boîte à moustaches et un histogramme des données observées à l’aide des commandes ci-dessous.
+
+```{r}
+stem(cpus)
+```
+
+```{r}
+par(mfrow=c(1,2), pty="s")
+boxplot(cpus, xlab="performance relative", col="darkslategray4", horizontal=T) 
+rug(cpus)
+hist(cpus, xlab="performance relative", ylab="fréquence", main="", 
+     col="darkslategray4") 
+par(mfrow=c(1,1))
+```
+
+#### 1) Quels sont les effet de cette commande?
+
+Laquelle?
+
+#### 2) Quel est l'effet de la fonction `rug()`?
+
+La fonction **`rug()`** en R ajoute de "petites barres verticales" (ou des "traits") le long de l'axe des x (ou y) pour représenter individuellement chaque observation des données. L'effet principal de cette fonction est de permettre la visualisation de la densité des données de manière précise directement sur un graphique en montrant exactement où se trouvent la valeurs observées.\
+La fonction `rug()`a comme avantages de fournir une information granulaire qui complète les graphiques résumés, de montrer si certaines données sont concentrées ou dispersées et enfin aide grandement à repérer les valeurs isolées ou des regroupements locaux.
+
+#### Observer les résultats obtenus par chaque commande.
+
+**stem(cpus)**\
+Cette commande génère un diagramme branche-et-feuilles pour les données de cpus. Elle divise les données en une partie "tige" (les chiffres significatifs, comme les dizaines) et une partie "feuille" (les unités). Cela fournit une visualisation textuelle rapide pour comprendre la répartition et les valeurs individuelles des données.
+
+**par(mfrow=c(1,2), pty="s")**\
+`par(mfrow=c(1,2))` divise la fenêtre graphique en une rangée de deux colonnes (1 ligne, 2 colonnes), permettant d'afficher deux graphiques côte à côte.`pty="s"` ajuste les graphiques pour qu'ils aient un rapport d’aspect carré.
+
+**boxplot(cpus, xlab="performance relative", col="darkslategray4", horizontal=T)**\
+Trace une boîte à moustaches (boxplot) des données. Elle permet une visualisation de la médiane, des quartiles (Q1 et Q3), des valeurs extrêmes (whiskers), et éventuellement des points aberrants.
+
+Le paramètre `horizontal=T` rend le boxplot horizontal, le paramètre `col="darkslategray4"` modifie la couleur de la boîte. Enfin, le paramètre `xlab="performance relative"` ajoute une étiquette descriptive à l'axe x.
+
+**rug(cpus)**\
+La fonction rug() ajoute de petites barres verticales le long de l’axe horizontal dans le boxplot, représentant chaque observation dans les données. Cela permet de visualiser individuellement les valeurs des données, en plus des statistiques résumées fournies par le boxplot.
+
+**hist(cpus, xlab="performance relative", ylab="fréquence", main="", col="darkslategray4")**\
+Cette commande trace un histogramme des données de l'objet cpus. Les valeurs de cpus sont alors regroupées en classe. La hauteur de chaque barre représente la fréquence des observation dans chaque classe.\
+Les étiquette d'axes (`xlab` et `ylab`) et la couleur des barres (`col="darkslategray4`) sont personnalisées.\
+`main=""` laisse le titre vide
+
+**par(mfrow=c(1,1))** Cette commande réinitialise la dispositon graphique pour revenir à un seul graphique par fenêtre.
+
+**Résumé des commandes combinées**\
+Cette suite de commandes crée une visualisation complète des données :\
+1) Diagramme branche-et-feuilles pour une vue textuelle. 2) Boîte à moustaches pour un résumé des statistiques et des valeurs aberrantes.\
+3) Histogramme pour une vue des fréquences des données.\
+4) `rug()` dans le boxplot pour montrer individuellement chaque donnée.\
+Ces visualisations offrent à la fois un aperçu statistique (boîte à moustaches) et une distribution (histogramme et diagramme branche-et-feuilles) des données cpus.
+
+### Partie b)
+
+**Enoncé:**\
+Commenter la distribution des valeurs observées en se basant sur les graphiques de la Figure 1 : valeur(s) atypique(s), asymétrie.
+
+**Valeurs atypiques:**\
+Dans la boîte à moustaches, les valeurs atypiques sont identifiées comme des points en dehors des "moustaches".\
+Nous remarquons ici que les données 915 et 510 sont très éloignées du reste de la distribution et donc se démarquent fortement.
+
+**Asymétrie:**\
+Principalement visible dans l'histogramme, on remarque une asymétrie forte vers la gauche. La majorité des valeurs sont inférieures à 100 et restent donc groupées dans une même barre. Seules quelques valeurs sont dispersées dans les autres barres de l'histogramme.\
+La boîte à moustache confirme cette asymétrie : la médiane est décalée vers la gauche, et la moustache supérieure est beaucoup plus longue que l'inférieure.
+
+**Répartition des données:**\
+Les données sont majoritairement concentrées dans une plage étroite (entre 10 et 100, comme le montre le boxplot et l'histogramme). Cela suggère une densité élevée dans cette région.\
+Quelques observations exceptionnelles (915, 510, etc.) sont situées bien au-delà du reste des données, créant une queue longue dans la distribution.
+
+### Partie c)
+
+**Enoncé:**\
+Calculer la performance relative médiane et la performance relative moyenne des valeurs observées en utilisant les fonctions de R adéquates.
+
+Pour calculer la performance relative médiane, nous utilisons la fonction `median()`:
+
+```{r}
+ median(cpus)
+```
+
+Pour calculer la performance moyenne, nous utilison la fonction `mean()`:
+
+```{r}
+mean(cpus)
+```
+
+**Question:**\
+Est-il plus approprié d’utiliser la médiane ou la moyenne ?
+
+Nous remarquons que la médiane des données est moins sensible aux valeurs atypiques et représente la valeur centrale des performances relatives.\
+La moyenne des données est influencée par les valeurs extrêmes (atypiques), ce qui pourrait la tirer vers des valeurs plus élevées que la médiane.
+
+Ici, nous pouvons donc indiquer que la médiane est un indicateur plus approprié que la moyenne car elle offre une mesure plus robuste et réaliste. La moyenne peut cependant être utile pour compléter l'analyse, indiquant notamment l'impact des valeurs atypiques.
+
+### Partie d)
+
+**Enoncé:**\
+Déterminer le(s) mode(s) des valeurs observées à l’aide des commandes suivantes :
+
+```{r}
+n.cpus<-table(cpus)
+as.numeric(names(n.cpus)[n.cpus==max(n.cpus)])
+```
+
+On observe donc plusieurs modes, les données sont donc multimodales.
+
+### Partie e)
+
+**Enoncé:**\
+Que fait la commande suivante ?
+
+```{r}
+summary(cpus)
+```
+
+Cette commande rend un "tableau" avec les valeurs suivantes:
+
+-   Min : représente la plus petite valeur contenue dans l'objet cpus
+
+-   1st Qu. : soit le premier quartile. C'est la limite inférieure sur un graphique de type boîte à moustache.
+
+-   Median : représente la médiane, soit la valeur centrale de la distribution
+
+-   Mean : représente la moyenne arithmétique des données
+
+-   3rd Qu. : soit le troisème quartile. C'est la limite supérieure sur un graphique de type boîte à moustache.
+
+-   Max : représente la plus grande valeur contenue dans l'objet cpus
+
+### Partie f)
+
+**Enoncé:** Décrire l’effet sur la moyenne et sur la médiane des trois interventions suivantes :\
+1. ajouter un processeur de performance relative 43\
+2. soustraire 9 à chaque valeur observée\
+3. diviser chaque observation par 3
+
+**1)**\
+La moyenne est directement affectée par l'ajout de nouvelles valeurs.\
+Cela augmente la somme totale des observations (de 43 ici) et augmente le nombre total d'observation (de 1 ici).\
+Pour calculer la nouvelle moyenne, on peut utiliser la formule suivante:\
+$$Nouvelle Moyenne = (Ancienne Somme Totale + 43) / (Ancien Nombre Observations + 1) $$ Si la valeur ajoutée est proche de l'ancienne moyenne, l'effet sera minime.
+
+La médiane est moins sensible que la moyenne. Elle ne sera modifiée que si la nouvelle valeur affecte la position de la valeur centrale.
+
+**2)**\
+La moyenne et la médiane sont affectées de manière linéaire si on soustrait un coefficient équivalent à chacune des observations du jeu de données. On peut utiliser les formules suivantes pour trouver les nouvelles moyenne et médiane respectivement:\
+$$NouvelleMoyenne = Ancienne Moyenne - 9 $$ $$Nouvelle Mediane = Ancienne Mediane - 9$$
+
+**3)**\
+Comme pour le point 2), la médiane et la moyenne sont affectées de la même manière lorsque les observations sont divisées par 3: Elles sont également divisées par 3. On peut alors utiliser les formules suivantes: $$NouvelleMoyenne = Ancienne Moyenne / 3  $$ $$Nouvelle Mediane = Ancienne Mediane / 3$$
+
+### Partie g)
+
+**Enoncé:**\
+Calculer l’écart-type des performances relatives une fois avec les valeurs atypiques et une fois sans en utilisant la fonction sd(). Les valeurs atypiques peuvent être déterminées à l’aide de la fonction boxplot() avec plot=FALSE comme argument.
+
+Calcul de l'écart-type avec les valeurs atypiques:
+
+```{r}
+sd(cpus)
+```
+
+Identification des valeurs atypiques:
+
+```{r}
+box <- boxplot(cpus, plot = FALSE);
+box
+```
+
+Les valeurs atypiques sont répertoriées sous la banière `out`. Nous pouvons donc les récupérer en utilisant la commande suivante:
+
+```{r}
+valeursAtypiques <- box$out
+valeursAtypiques
+```
+
+Nous pouvons ensuite les retirer de notre jeu de données (en faisant une copie pour ne pas corrompre notre jeu initial):
+
+```{r}
+cpus_clean <- cpus[!cpus %in% valeursAtypiques]
+```
+
+Calcul de l'écart-type sans les valeurs atypiques:
+
+```{r}
+sd(cpus_clean)
+```
+
+**Question**\
+Que constate-t-on ? L’écart-type est-il un indicateur robuste ?
+
+L'écart-type n'est pas un indicateur robuste. Les valeurs atypiques ont une grande influence sur sa valeur. On remarque dans nos résultats une différence de 109.843, ce qui est absolument énorme.
+
+## Exercice 3
+
+Les étudiants suivant un cours de Probabilités et Statistique dans une école d’ingénierie ont passé l’examen de fin d’unité. Le cours était donné par le même professeur à étudiants répartis en deux groupes notés A et B. Les résultats obtenus figurent dans la table ci-dessous et sont contenus dans l’objet examen.
+
+```{r}
+examen
+```
+
+On se demande si une différence significative existe entre les deux groupes à l’examen.
+
+### Partie a)
+
+**Enoncé:**\
+Tracer les boîtes à moustaches en parallèle en utilisant les commandes suivantes :
+
+```{r}
+lblue<-"#528B8B"
+par(pty="s")
+boxplot(note~groupe, data=examen, ylim=c(1,6), xlab="groupe", 
+        varwidth=T, col=lblue, main="examen")
+abline(h=4, lty=2)
+```
+
+### Partie b)
+
+**Enoncé:**\
+Rajouter les bâtonnets des notes des étudiants des deux classes, sur le côté gauche des boîtes à moustaches pour la classe (side=2 comme argument de la fonction `rug()`) et sur le côté droite pour la classe (side=4 comme argument de la fonction `rug()`).\
+*Indication:* pour séparer puis enregistrer les notes des étudiants selon les groupes, on peut utiliser les commandes:
+
+```{r}
+note.A<-split(examen$note, examen$groupe)$A
+note.B<-split(examen$note, examen$groupe)$B
+```
+
+Rajoutons les bâtonnets au graphique:
+
+```{r}
+lblue<-"#528B8B"
+par(pty="s")
+boxplot(note~groupe, data=examen, ylim=c(1,6), xlab="groupe", 
+        varwidth=T, col=lblue, main="examen")
+abline(h=4, lty=2)
+rug(note.A, side=2)  
+rug(note.B, side=4)
+```
+
+### Partie c)
+
+**Enoncé:**\
+En se basant sur la Figure 2 (ci-dessus), existe-t-il une différence significative entre les deux groupes à l’examen de fin d’unité ?
+
+On remarque que la boîte du groupe B est légérement plus étendue que celle du groupe A. On peut donc supposer que la distribution des notes a été plus éparse que pour le groupe A. On remarque ......
