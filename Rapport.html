@@ -759,7 +759,29 @@ Rajouter les bâtonnets des notes des étudiants des deux classes, sur le côté
 <h3 class="anchored" data-anchor-id="partie-c-2">Partie c)</h3>
 <p><strong>Enoncé:</strong><br>
 En se basant sur la Figure 2 (ci-dessus), existe-t-il une différence significative entre les deux groupes à l’examen de fin d’unité ?</p>
-<p>On remarque que la boîte du groupe B est légérement plus étendue que celle du groupe A. On peut donc supposer que la distribution des notes a été plus éparse que pour le groupe A. On remarque ……</p>
+<p>On remarque que la boîte du groupe B est légérement plus étendue que celle du groupe A. On peut donc supposer que la distribution des notes a été plus éparse que pour le groupe A. On ne remarque cependant pas une différence significatice entre les deux groupes à l’examen de fin d’unité.</p>
+</section>
+<section id="partie-d-2" class="level3">
+<h3 class="anchored" data-anchor-id="partie-d-2">Partie d)</h3>
+<p><strong>Enoncé:</strong><br>
+Observe-t-on sur les boîtes à moustaches une différence entre les dispersions des deux groupes ?</p>
+<p>D’après les boîtes à moustaches, le groupe B semble légèrement plus dispersé que le groupe A. Les moustaches du groupe B sont plus longues, suggérant des notes plus variées.</p>
+</section>
+<section id="partie-e-2" class="level3">
+<h3 class="anchored" data-anchor-id="partie-e-2">Partie e)</h3>
+<p><strong>Enoncé:</strong><br>
+Calculer les écarts-types des deux groupes à l’aide des fonctions <code>by()</code> et <code>sd()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ecarts <span class="ot">&lt;-</span><span class="fu">by</span>(examen<span class="sc">$</span>note, examen<span class="sc">$</span>groupe, sd, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>ecarts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>examen$groupe: A
+[1] 0.7503156
+------------------------------------------------------------ 
+examen$groupe: B
+[1] 1.026574</code></pre>
+</div>
+</div>
 </section>
 </section>
 </section>

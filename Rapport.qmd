@@ -423,4 +423,29 @@ rug(note.B, side=4)
 **Enoncé:**\
 En se basant sur la Figure 2 (ci-dessus), existe-t-il une différence significative entre les deux groupes à l’examen de fin d’unité ?
 
-On remarque que la boîte du groupe B est légérement plus étendue que celle du groupe A. On peut donc supposer que la distribution des notes a été plus éparse que pour le groupe A. On remarque ......
+On remarque que la boîte du groupe B est légérement plus étendue que celle du groupe A. On peut donc supposer que la distribution des notes a été plus éparse que pour le groupe A. On ne remarque cependant pas une différence significatice entre les deux groupes à l'examen de fin d'unité.
+
+### Partie d)
+**Enoncé:**\
+Observe-t-on sur les boîtes à moustaches une différence entre les dispersions des deux groupes ?
+
+D’après les boîtes à moustaches, le groupe B semble légèrement plus dispersé que le groupe A. Les moustaches du groupe B sont plus longues, suggérant des notes plus variées.
+
+### Partie e)
+**Enoncé:**\
+Calculer les écarts-types des deux groupes à l’aide des fonctions `by()` et `sd()`.
+
+```{r}
+ecarts <-by(examen$note, examen$groupe, sd, na.rm = TRUE)
+ecarts
+```
+Grâce au paramètre na.rm = TRUE, on ne prend pas en compte les valeurs nulles.
+
+Les deux groupes présentent des différences notables en termes de dispersion des résultats à l’examen :
+
+Le groupe B, avec un écart-type de 1.0266, montre une variabilité plus importante dans les notes, indiquant des performances plus diversifiées. À l’inverse, le groupe A, dont l’écart-type est de 0.7503, affiche des résultats plus resserrés autour de la moyenne, témoignant d’une plus grande homogénéité.
+
+Ainsi, les résultats du groupe B sont davantage dispersés, traduisant une hétérogénéité marquée des performances, tandis que ceux du groupe A sont plus concentrés, reflétant une plus grande uniformité.
+
+
+
